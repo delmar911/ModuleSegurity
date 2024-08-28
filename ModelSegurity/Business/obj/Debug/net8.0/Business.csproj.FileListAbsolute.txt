@@ -5,7 +5,9 @@ C:\Users\usuario\Documents\SENA\CSHARP\ModuleSegurity\ModelSegurity\Business\obj
 C:\Users\usuario\Documents\SENA\CSHARP\ModuleSegurity\ModelSegurity\Business\obj\Debug\net8.0\Business.AssemblyInfoInputs.cache
 C:\Users\usuario\Documents\SENA\CSHARP\ModuleSegurity\ModelSegurity\Business\obj\Debug\net8.0\Business.AssemblyInfo.cs
 C:\Users\usuario\Documents\SENA\CSHARP\ModuleSegurity\ModelSegurity\Business\obj\Debug\net8.0\Business.csproj.CoreCompileInputs.cache
+C:\Users\usuario\Documents\SENA\CSHARP\ModuleSegurity\ModelSegurity\Business\obj\Debug\net8.0\Business.sourcelink.json
 C:\Users\usuario\Documents\SENA\CSHARP\ModuleSegurity\ModelSegurity\Business\obj\Debug\net8.0\Business.dll
 C:\Users\usuario\Documents\SENA\CSHARP\ModuleSegurity\ModelSegurity\Business\obj\Debug\net8.0\refint\Business.dll
 C:\Users\usuario\Documents\SENA\CSHARP\ModuleSegurity\ModelSegurity\Business\obj\Debug\net8.0\Business.pdb
 C:\Users\usuario\Documents\SENA\CSHARP\ModuleSegurity\ModelSegurity\Business\obj\Debug\net8.0\ref\Business.dll
+C:\Users\usuario\Documents\SENA\CSHARP\ModuleSegurity\ModelSegurity\Business\obj\Debug\net8.0\Business.csproj.AssemblyReference.cache

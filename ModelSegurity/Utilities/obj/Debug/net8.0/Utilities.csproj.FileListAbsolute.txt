@@ -5,6 +5,7 @@ C:\Users\usuario\Documents\SENA\CSHARP\ModuleSegurity\ModelSegurity\Utilities\ob
 C:\Users\usuario\Documents\SENA\CSHARP\ModuleSegurity\ModelSegurity\Utilities\obj\Debug\net8.0\Utilities.AssemblyInfoInputs.cache
 C:\Users\usuario\Documents\SENA\CSHARP\ModuleSegurity\ModelSegurity\Utilities\obj\Debug\net8.0\Utilities.AssemblyInfo.cs
 C:\Users\usuario\Documents\SENA\CSHARP\ModuleSegurity\ModelSegurity\Utilities\obj\Debug\net8.0\Utilities.csproj.CoreCompileInputs.cache
+C:\Users\usuario\Documents\SENA\CSHARP\ModuleSegurity\ModelSegurity\Utilities\obj\Debug\net8.0\Utilities.sourcelink.json
 C:\Users\usuario\Documents\SENA\CSHARP\ModuleSegurity\ModelSegurity\Utilities\obj\Debug\net8.0\Utilities.dll
 C:\Users\usuario\Documents\SENA\CSHARP\ModuleSegurity\ModelSegurity\Utilities\obj\Debug\net8.0\refint\Utilities.dll
 C:\Users\usuario\Documents\SENA\CSHARP\ModuleSegurity\ModelSegurity\Utilities\obj\Debug\net8.0\Utilities.pdb

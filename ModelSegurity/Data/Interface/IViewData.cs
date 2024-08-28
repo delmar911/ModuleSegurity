@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Entity.Model.Security;
 
 namespace Data.Interface
 {
-    internal interface IViewData
+    public interface IViewData
     {
+        public Task Delete(int id);
+        public Task<View> GetById(int id);
 
+        Task<IEnumerable<View>> GetAll();
+        public Task<View> Save(View entity);
+        public Task<View> Update(View entity);
     }
 }

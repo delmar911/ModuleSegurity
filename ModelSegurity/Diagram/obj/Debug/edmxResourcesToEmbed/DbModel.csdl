@@ -24,6 +24,14 @@
       <End Role="RoleView" EntitySet="RoleViewSet" />
       <End Role="Role" EntitySet="RoleSet" />
     </AssociationSet>
+    <AssociationSet Name="ViewModule" Association="DbModel.ViewModule">
+      <End Role="View" EntitySet="ViewSet" />
+      <End Role="Module" EntitySet="ModuleSet" />
+    </AssociationSet>
+    <AssociationSet Name="RoleViewView" Association="DbModel.RoleViewView">
+      <End Role="RoleView" EntitySet="RoleViewSet" />
+      <End Role="View" EntitySet="ViewSet" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Person">
     <Key>
@@ -91,6 +99,7 @@
     <Property Name="DeletedAt" Type="DateTime" Nullable="false" />
     <Property Name="State" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="Role_id" Relationship="DbModel.RoleViewRole" FromRole="RoleView" ToRole="Role" />
+    <NavigationProperty Name="ViewId" Relationship="DbModel.RoleViewView" FromRole="RoleView" ToRole="View" />
   </EntityType>
   <EntityType Name="View">
     <Key>
@@ -103,6 +112,7 @@
     <Property Name="UpdateAt" Type="DateTime" Nullable="false" />
     <Property Name="DeletedAt" Type="DateTime" Nullable="false" />
     <Property Name="State" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="ModuleId" Relationship="DbModel.ViewModule" FromRole="View" ToRole="Module" />
   </EntityType>
   <EntityType Name="Module">
     <Key>
@@ -130,5 +140,13 @@
   <Association Name="RoleViewRole">
     <End Type="DbModel.RoleView" Role="RoleView" Multiplicity="*" />
     <End Type="DbModel.Role" Role="Role" Multiplicity="*" />
+  </Association>
+  <Association Name="ViewModule">
+    <End Type="DbModel.View" Role="View" Multiplicity="*" />
+    <End Type="DbModel.Module" Role="Module" Multiplicity="1" />
+  </Association>
+  <Association Name="RoleViewView">
+    <End Type="DbModel.RoleView" Role="RoleView" Multiplicity="*" />
+    <End Type="DbModel.View" Role="View" Multiplicity="1" />
   </Association>
 </Schema>

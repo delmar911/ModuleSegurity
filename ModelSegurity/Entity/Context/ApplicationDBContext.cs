@@ -3,16 +3,16 @@ using Entity.Model.Security;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Configuration;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Reflection;
 
+
 namespace Entity.Context
 {
-    internal class AplicationDbContext : DbContext
+    public class ApplicationDbContext : DbContext
     {
         protected readonly IConfiguration _configuration;
-        public AplicationDbContext(DbContextOptions<AplicationDbContext> options, IConfiguration configuration) : base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IConfiguration configuration) : base(options)
         {
             _configuration = configuration;
         }
@@ -43,7 +43,7 @@ namespace Entity.Context
         public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSucces, CancellationToken cancellationToken = default)
         {
             EnsureAudit();
-            return base.SaveChangesAsync(acceptAllChangesOnSucces,
+             return base.SaveChangesAsync(acceptAllChangesOnSucces,
                             cancellationToken);
         }
 
@@ -67,11 +67,18 @@ namespace Entity.Context
         }
 
         //Security
-
+        public DbSet<Model.Security.Module> Modules => Set<Model.Security.Module>();
         public DbSet<Role> Roles => Set<Role>();
         public DbSet<Person> Persons => Set<Person>();
         public DbSet<User> Users => Set<User>();
         public DbSet<UserRole> UserRoles => Set<UserRole>();
+        public DbSet<View> Views => Set<View>();
+
+        public DbSet<RoleView> RoleViews => Set<RoleView>();
+
+
+
+
         public readonly struct DapperEFCoreCommand : IDisposable
         {
             public DapperEFCoreCommand(DbContext context, string text, object parameters, int? timeout, CommandType? type, CancellationToken ct)

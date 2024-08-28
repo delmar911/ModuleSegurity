@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Entity.Model.Security
+﻿namespace Entity.Model.Security
 {
-    internal class Person
+    public class Person
     {
         public int Id { get; set; }
         public  string FirstName { get; set; }
@@ -31,7 +24,7 @@ namespace Entity.Model.Security
 
         public DateTime DeletedAt { get; set; }
 
-        public Boolean State { get; set; }
+        public bool State { get; set; }
 
     }
 }

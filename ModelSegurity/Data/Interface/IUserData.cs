@@ -1,12 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Entity.Model.Security;
 
 namespace Data.Interface
 {
-    internal interface IUserData
+    public interface IUserData
     {
+
+        public Task Delete(int id);
+        public Task<User> GetById(int id);
+
+        Task<IEnumerable<User>> GetAll();
+        public Task<User> Save(User entity);
+        public Task<User>Update(User entity);
     }
 }
+
+
