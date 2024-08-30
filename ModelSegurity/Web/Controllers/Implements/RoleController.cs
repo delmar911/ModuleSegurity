@@ -5,60 +5,57 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Controllers.Implements
 {
-
     [ApiController]
     [Route("[controller]")]
-    public class PersonController : ControllerBase
+    public class RoleController : ControllerBase
     {
-        private readonly IPersonBusiness _personBusiness;
+        private readonly IRoleBusiness _roleBusiness;
 
-        public PersonController(IPersonBusiness personBusiness)
+        public RoleController(IRoleBusiness roleBusiness)
         {
-            _personBusiness = personBusiness;
+            _roleBusiness = roleBusiness;
         }
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<PersonDto>>> GetAll()
+        public async Task<ActionResult<IEnumerable<RoleDto>>> GetAll()
         {
-            var result = await _personBusiness.GetAll();
+            var result = await _roleBusiness.GetAll();
             return Ok(result);
         }
         [HttpGet("{id}")]
-        public async Task<ActionResult<PersonDto>> GetById(int id)
+        public async Task<ActionResult<RoleDto>> GetById(int id)
         {
-            var result = await _personBusiness.GetById(id);
+            var result = await _roleBusiness.GetById(id);
             if (result == null)
             {
                 return NotFound();
             }
             return Ok(result);
-
         }
         [HttpPost]
-        public async Task<ActionResult<Person>> Save([FromBody] PersonDto entity)
+        public async Task<ActionResult<Role>> Save([FromBody] RoleDto entity)
         {
             if (entity == null)
             {
                 return BadRequest("Entity is null");
             }
-            var result = await _personBusiness.Save(entity);
-            return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
+            var result = await _roleBusiness.Save(entity);
+            return CreatedAtAction(nameof(GetById), new {id = result.Id});
         }
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update([FromBody] PersonDto entity)
+        public async Task<IActionResult> Update([FromBody] RoleDto entity)
         {
             if (entity == null || entity.Id == 0)
             {
                 return BadRequest();
             }
-            await _personBusiness.Update(entity);
+            await _roleBusiness.Update(entity);
             return NoContent();
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            await _personBusiness.Deleted(id);
+            await _roleBusiness.Deleted(id);
             return NoContent();
         }
-    }   
-
+    }
 }
