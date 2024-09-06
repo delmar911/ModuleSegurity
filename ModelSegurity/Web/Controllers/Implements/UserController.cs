@@ -2,12 +2,13 @@
 using Entity.Dto;
 using Entity.Model.Security;
 using Microsoft.AspNetCore.Mvc;
+using Web.Controllers.Interface;
 
 namespace Web.Controllers.Implements
 {
     [ApiController]
     [Route("[controller]")]
-    public class UserController : ControllerBase
+    public class UserController : ControllerBase, IUserController
     {
         private readonly IUserBusiness _userBusiness;
 
@@ -32,27 +33,27 @@ namespace Web.Controllers.Implements
             return Ok(result);
         }
         [HttpPost]
-        public async Task<ActionResult<User>> Save([FromBody] UserDto entity)
+        public async Task<ActionResult<User>> Save([FromBody] UserDto userDto)
         {
-            if (entity == null)
+            if (userDto == null)
             {
-                return BadRequest("Entity is null");
+                return BadRequest("userDto is null");
             }
-            var result = await _userBusiness.Save(entity);
+            var result = await _userBusiness.Save(userDto);
             return CreatedAtAction(nameof(GetById), new { id = result.Id });
         }
         [HttpPut("{id}")]
-        public async Task<IActionResult> Upadate([FromBody] UserDto entity)
+        public async Task<IActionResult> Update([FromBody] UserDto userDto)
         {
-            if (entity == null || entity.Id == 0)
+            if (userDto == null || userDto.Id == 0)
             {
                 return BadRequest();
             }
-            await _userBusiness.Update(entity);
+            await _userBusiness.Update(userDto);
             return NoContent();
         }
         [HttpDelete("{id}")]
-        public async Task<IActionResult>Delete(int id)
+        public async Task<IActionResult> Deleted(int id)
         {
             await _userBusiness.Deleted(id);
             return NoContent();

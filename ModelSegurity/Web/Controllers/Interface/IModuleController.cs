@@ -1,14 +1,19 @@
 ﻿using Entity.Dto;
-using System.Reflection;
+using Entity.Model.Security;
+using Microsoft.AspNetCore.Mvc;
+
 
 namespace Web.Controllers.Interface
 {
     public interface IModuleController
     {
-        public Task<IEnumerable<ModuleDto>> GetAll();
-        public Task<ModuleDto> GetById(int id);
-        public Task<Module>Save(ModuleDto entity);
-        public Task Update(ModuleDto entity);
-        public Task Deleted(int id);
+        public Task<ActionResult<IEnumerable<ModuleDto>>> GetAll();
+
+        public Task<ActionResult<ModuleDto>> GetById(int id);
+        public  Task<ActionResult<Module>> Save([FromBody] ModuleDto moduleDto);
+
+        public  Task<IActionResult> Update([FromBody] ModuleDto moduleDto);
+
+        public Task<IActionResult> Deleted(int id);
     }
 }

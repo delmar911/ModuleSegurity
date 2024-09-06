@@ -35,7 +35,7 @@ namespace Business.Implements
         public async Task<UserDto> GetById(int id)
         {
 
-            UserDto user = await this.data.GetById(id);
+            User user = await this.data.GetById(id);
             if (user == null) 
             {
                 throw new Exception("Registro no encontrado");
@@ -57,22 +57,22 @@ namespace Business.Implements
             user.State = entity.State;
             return user;
         }
-        public async Task<User> Save(UserDto entity)
+        public async Task<User> Save(UserDto userDto)
         {
             User user = new User();
             user.CreateAt = DateTime.Now.AddHours(-5);
-            user = this.MappingData(user, entity);
+            user = this.MappingData(user, userDto);
 
             return await this.data.Save(user);
         }
-        public async Task Update(UserDto entity)
+        public async Task Update(UserDto userDto)
         {
-            User user = await this.data.GetById(entity.Id);
+            User user = await this.data.GetById(userDto.Id);
             if (user == null)
             {
                 throw new Exception("Registro no encontrado");
             }
-            user = this.MappingData(user, entity);
+            user = this.MappingData(user, userDto);
             await this.data.Update(user);
         }
     }

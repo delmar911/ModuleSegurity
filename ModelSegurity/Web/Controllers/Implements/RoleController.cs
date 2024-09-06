@@ -2,12 +2,13 @@
 using Entity.Dto;
 using Entity.Model.Security;
 using Microsoft.AspNetCore.Mvc;
+using Web.Controllers.Interface;
 
 namespace Web.Controllers.Implements
 {
     [ApiController]
     [Route("[controller]")]
-    public class RoleController : ControllerBase
+    public class RoleController : ControllerBase, IRoleController
     {
         private readonly IRoleBusiness _roleBusiness;
 
@@ -32,29 +33,29 @@ namespace Web.Controllers.Implements
             return Ok(result);
         }
         [HttpPost]
-        public async Task<ActionResult<Role>> Save([FromBody] RoleDto entity)
+        public async Task<ActionResult<Role>> Save([FromBody] RoleDto roleDto)
         {
-            if (entity == null)
+            if (roleDto == null)
             {
                 return BadRequest("Entity is null");
             }
-            var result = await _roleBusiness.Save(entity);
+            var result = await _roleBusiness.Save(roleDto);
             return CreatedAtAction(nameof(GetById), new {id = result.Id});
         }
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update([FromBody] RoleDto entity)
+        public async Task<IActionResult> Update([FromBody] RoleDto roleDto)
         {
-            if (entity == null || entity.Id == 0)
+            if (roleDto == null || roleDto.Id == 0)
             {
                 return BadRequest();
             }
-            await _roleBusiness.Update(entity);
+            await _roleBusiness.Update(roleDto);
             return NoContent();
         }
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Deleted(int id)
         {
-            await _roleBusiness.Deleted(id);
+            await _roleBusiness.Delete(id);
             return NoContent();
         }
     }

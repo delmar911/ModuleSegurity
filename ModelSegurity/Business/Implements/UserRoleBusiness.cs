@@ -34,7 +34,7 @@ namespace Business.Implements
         }
         public async Task<IEnumerable<DataSelectDto>> GetAllSelect()
         {
-            return (IEnumerable<DataSelectDto>)await this.data.GetAllSelect();
+            return await this.data.GetAllSelect();
         }
         public async Task<UserRoleDto> GetById(int id)
         {

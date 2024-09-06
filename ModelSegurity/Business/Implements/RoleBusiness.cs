@@ -17,11 +17,6 @@ namespace Business.Implements
             await data.Delete(id);
         }
 
-        public Task Deleted(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<IEnumerable<RoleDto>> GetAll()
         {
             IEnumerable<Role> roles = await this.data.GetAll();
@@ -75,14 +70,6 @@ namespace Business.Implements
             await this.data.Update(role);
         }
 
-        Task<RoleDto> IRoleBusiness.Save(RoleDto entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<RoleDto> IRoleBusiness.Update(RoleDto entity)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

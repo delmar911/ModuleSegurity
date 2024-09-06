@@ -1,4 +1,5 @@
-﻿using Entity.Model.Security;
+﻿using Entity.Dto;
+using Entity.Model.Security;
 
 namespace Data.Interface
 {
@@ -10,5 +11,7 @@ namespace Data.Interface
         Task<IEnumerable<UserRole>> GetAll();
         public Task<UserRole> Save(UserRole entity);
         public Task<UserRole> Update(UserRole entity);
+
+        public Task<IEnumerable<DataSelectDto>> GetAllSelect();
     }
 }

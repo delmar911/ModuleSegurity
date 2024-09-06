@@ -2,13 +2,14 @@
 using Entity.Dto;
 using Entity.Model.Security;
 using Microsoft.AspNetCore.Mvc;
-using static Dapper.SqlMapper;
+using Web.Controllers.Interface;
+
 
 namespace Web.Controllers.Implements
 {
     [ApiController]
     [Route("[controller]")]
-    public class RoleViewController : ControllerBase
+    public class RoleViewController : ControllerBase, IRoleViewController
     {
         private readonly IRoleViewBusiness _roleViewBusiness;
 
@@ -33,27 +34,27 @@ namespace Web.Controllers.Implements
             return Ok(result);
         }
         [HttpPost]
-        public async Task<ActionResult<RoleView>> Save([FromBody] RoleViewDto entity)
+        public async Task<ActionResult<RoleView>> Save([FromBody] RoleViewDto roleViewDto)
         {
-            if (entity == null)
+            if (roleViewDto == null)
             {
                 return BadRequest("Entity is null");
             }
-            var result = await _roleViewBusiness.Save(entity);
+            var result = await _roleViewBusiness.Save(roleViewDto);
             return CreatedAtAction(nameof(GetById), new {id = result.Id});
         }
         [HttpPut("{id}")] 
-        public async Task<IActionResult> Update([FromBody] RoleViewDto entity)
+        public async Task<IActionResult> Update([FromBody] RoleViewDto roleViewDto)
         {
-            if(entity == null || entity.Id == 0)
+            if(roleViewDto == null || roleViewDto.Id == 0)
             {
                 return BadRequest();
             }
-            await _roleViewBusiness.Update(entity);
+            await _roleViewBusiness.Update(roleViewDto);
             return NoContent();
         }
         [HttpDelete("{id}")]
-        public async Task<IActionResult>Delete(int id)
+        public async Task<IActionResult> Deleted(int id)
         {
             await _roleViewBusiness.Deleted(id);
             return NoContent();

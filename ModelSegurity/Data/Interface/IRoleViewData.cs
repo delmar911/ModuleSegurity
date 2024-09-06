@@ -10,7 +10,6 @@ namespace Data.Interface
         public Task<RoleView> Save(RoleView entity);
         public Task<RoleView> Update(RoleView entity);
         public Task<IEnumerable<RoleView>> GetAll();
-
-        public Task<IEnumerable<RoleView>> GetAllSelect();
+        public Task<IEnumerable<DataSelectDto>> GetAllSelect();
     }
 }

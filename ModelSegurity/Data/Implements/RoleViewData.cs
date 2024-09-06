@@ -40,7 +40,6 @@ namespace Data.Implements
             return await context.QueryAsync<RoleView>(sql);
         }
 
-
         public async Task Delete(int Id)
         {
             var entity = await GetById(Id);
@@ -68,7 +67,6 @@ namespace Data.Implements
             await context.SaveChangesAsync();
             return entity;
         }
-
 
         public async Task Update(RoleViewData entity)
         {

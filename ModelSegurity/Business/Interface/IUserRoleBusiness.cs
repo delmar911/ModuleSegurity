@@ -1,4 +1,5 @@
 ﻿using Entity.Dto;
+using Entity.Model.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +12,9 @@ namespace Business.Interface
     {
         public Task Delete(int id);
         public Task<UserRoleDto> GetById(int id);
-        //Task<IEnumerable<DataSelectDto>> GetAllSelect();
-        public Task<UserRoleDto> Save(UserRoleDto entity);
-        public Task<UserRoleDto> Update(UserRoleDto entity);
+        public Task<IEnumerable<DataSelectDto>> GetAllSelect();
+        public Task<UserRole> Save(UserRoleDto entity);
+        public Task Update(UserRoleDto entity);
 
         public Task<IEnumerable<UserRoleDto>> GetAll();
     }

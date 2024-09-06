@@ -89,14 +89,7 @@ namespace Business.Implements
             await this.data.Update(person);
         }
 
-        Task<PersonDto> IPersonBusiness.Save(PersonDto entity)
-        {
-            throw new NotImplementedException();
-        }
+       
 
-        Task<PersonDto> IPersonBusiness.Update(PersonDto entity)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

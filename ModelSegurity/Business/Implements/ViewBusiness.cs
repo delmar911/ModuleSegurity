@@ -32,10 +32,23 @@ namespace Business.Implements
             });
             return viewDtos;
         }
-
-        public Task<View> GetById(int id)
+        public async Task<IEnumerable<DataSelectDto>> GetAllSelect()
         {
-            throw new NotImplementedException();
+            return await this.data.GetAllSelect();
+        }
+        public async Task<ViewDto> GetById(int id)
+        {
+            View view = await this.data.GetById(id);
+            if (view == null)
+            {
+                throw new Exception("Registro no encontrado");
+            }
+            ViewDto viewDto = new ViewDto
+            {
+                Id = view.Id,
+
+            };
+            return viewDto;
         }
 
         public View MappingData(View view, ViewDto entity)

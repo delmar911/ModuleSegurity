@@ -1,4 +1,5 @@
 ﻿using Entity.Dto;
+using Entity.Model.Security;
 
 namespace Business.Interface
 {
@@ -7,8 +8,10 @@ namespace Business.Interface
         public Task Deleted(int id);
         public Task<PersonDto> GetById(int id);
        
-        public Task<PersonDto> Save(PersonDto entity);
-        public Task<PersonDto> Update(PersonDto entity);
-        
+        public Task<Person> Save(PersonDto entity);
+        public Task Update(PersonDto entity);
+        public Task<IEnumerable<DataSelectDto>> GetAllSelect();
+
+        public Task<IEnumerable<PersonDto>> GetAll();
     }
 }

@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Data.Implements
 {
-    internal class ModuleData : IModuleData
+    public class ModuleData : IModuleData
     {
         private readonly ApplicationDbContext context;
         protected readonly IConfiguration configuration;

@@ -3,6 +3,7 @@ using Entity.Model.Security;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using System.Data;
 using System.Reflection;
 
@@ -73,11 +74,10 @@ namespace Entity.Context
         public DbSet<User> Users => Set<User>();
         public DbSet<UserRole> UserRoles => Set<UserRole>();
         public DbSet<View> Views => Set<View>();
-
         public DbSet<RoleView> RoleViews => Set<RoleView>();
-
-
-
+        public DbSet<City> Cities => Set<City>();
+        public DbSet<Department> Departments => Set<Department>();
+        public DbSet<Country> Countries => Set<Country>();
 
         public readonly struct DapperEFCoreCommand : IDisposable
         {

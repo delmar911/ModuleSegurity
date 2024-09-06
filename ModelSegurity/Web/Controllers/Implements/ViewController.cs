@@ -3,12 +3,13 @@ using Business.Interface;
 using Entity.Dto;
 using Entity.Model.Security;
 using Microsoft.AspNetCore.Mvc;
+using Web.Controllers.Interface;
 
 namespace Web.Controllers.Implements
 {
     [ApiController]
     [Route("[controller]")]
-    public class ViewController : ControllerBase
+    public class ViewController : ControllerBase, IViewController
     {
         private readonly IViewBusiness _viewBusiness;
 

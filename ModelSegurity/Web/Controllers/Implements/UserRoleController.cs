@@ -3,12 +3,13 @@ using Business.Interface;
 using Entity.Dto;
 using Entity.Model.Security;
 using Microsoft.AspNetCore.Mvc;
+using Web.Controllers.Interface;
 
 namespace Web.Controllers.Implements
 {
     [ApiController]
     [Route("[controller]")]
-    public class UserRoleController : ControllerBase
+    public class UserRoleController : ControllerBase, IUserRoleController
     {
         private readonly IUserRoleBusiness _userRoleBusiness;
 
@@ -33,23 +34,23 @@ namespace Web.Controllers.Implements
             return Ok(result);
         }
         [HttpPost]
-        public async Task<ActionResult<UserRole>>Save([FromBody] UserRoleDto entity)
+        public async Task<ActionResult<UserRole>>Save([FromBody] UserRoleDto userRoleViewDto)
         {
-            if (entity == null)
+            if (userRoleViewDto == null)
             {
-                return BadRequest("Entity is null");
+                return BadRequest("userRoleViewDto is null");
             }
-            var result = await _userRoleBusiness.Save(entity);
+            var result = await _userRoleBusiness.Save(userRoleViewDto);
             return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
         }
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update([FromBody] UserRoleDto entity)
+        public async Task<IActionResult> Update([FromBody] UserRoleDto userRoleViewDto)
         {
-            if(entity == null || entity.Id == 0)
+            if(userRoleViewDto == null || userRoleViewDto.Id == 0)
             {
                 return BadRequest();
             }
-            await _userRoleBusiness.Update(entity);
+            await _userRoleBusiness.Update(userRoleViewDto);
             return NoContent();
         }
         [HttpDelete("{id}")]
