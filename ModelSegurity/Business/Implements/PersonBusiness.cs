@@ -18,21 +18,9 @@ namespace Business.Implements
         }
         public async Task<IEnumerable<PersonDto>> GetAll()
         {
-            IEnumerable<Person> persons = await this.data.GetAll();
-            var personDtos = persons.Select(persons => new PersonDto
-            {
-                Id = persons.Id,
-                FirstName = persons.FirstName,
-                LastName = persons.LastName,
-                Email = persons.Email,
-                Address = persons.Address,
-                TypeDocument = persons.TypeDocument,
-                Document = persons.Document,
-                BirthOfDate = persons.BirthOfDate,
-                Phone = persons.Phone,
-                State = persons.State
-            });
-            return personDtos;
+            IEnumerable<PersonDto> persons = await this.data.GetAll();
+         
+            return persons;
         }
         public async Task<IEnumerable<DataSelectDto>> GetAllSelect()
         {
@@ -41,8 +29,12 @@ namespace Business.Implements
 
         public async Task<PersonDto> GetById(int id)
         {
-
+            
             Person person = await this.data.GetById(id);
+            if (person == null)
+            {
+                throw new Exception("El registro no existe");
+            }
             PersonDto PersonDto = new PersonDto();
 
             PersonDto.Id = person.Id;
@@ -55,6 +47,7 @@ namespace Business.Implements
             PersonDto.BirthOfDate = person.BirthOfDate;
             PersonDto.Phone = person.Phone;
             PersonDto.State = person.State;
+            PersonDto.CityId = person.CityId;
             return PersonDto;
         }
         public Person MappingData(Person person, PersonDto entity)
@@ -67,7 +60,9 @@ namespace Business.Implements
             person.TypeDocument = entity.TypeDocument;
             person.Document = entity.Document;
             person.BirthOfDate = entity.BirthOfDate;
+            person.Phone = entity.Phone;
             person.State = entity.State;
+            person.CityId = entity.CityId;
             return person;
         }
         public async Task<Person> Save(PersonDto entity)

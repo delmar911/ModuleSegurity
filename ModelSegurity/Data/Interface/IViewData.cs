@@ -8,8 +8,8 @@ namespace Data.Interface
         public Task Delete(int id);
         public Task<View> GetById(int id);
         public Task<IEnumerable<DataSelectDto>> GetAllSelect();
-        Task<IEnumerable<View>> GetAll();
+        Task<IEnumerable<ViewDto>> GetAll();
         public Task<View> Save(View entity);
-        public Task<View> Update(View entity);
+        public Task Update(View entity);
     }
 }

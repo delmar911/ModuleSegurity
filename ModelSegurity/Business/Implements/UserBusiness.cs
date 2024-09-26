@@ -18,15 +18,9 @@ namespace Business.Implements
         }
         public async Task<IEnumerable<UserDto>> GetAll()
         {
-            IEnumerable<User> users = await this.data.GetAll();
-            var UserDtos = users.Select(users => new UserDto
-            {
-                Id = users.Id,
-                Username = users.Username,
-                Password = users.Password,
-                State = users.State
-            });
-            return UserDtos;
+            IEnumerable<UserDto> users = await this.data.GetAll();
+
+            return users;
         }
         public async Task<IEnumerable<DataSelectDto>> GetAllSelect()
         {
@@ -36,17 +30,18 @@ namespace Business.Implements
         {
 
             User user = await this.data.GetById(id);
-            if (user == null) 
+            if (user == null)
             {
                 throw new Exception("Registro no encontrado");
             }
             UserDto userDto = new UserDto();
-            {  
+            
                 userDto.Id = user.Id;
                 userDto.Username = user.Username;
                 userDto.Password = user.Password;
                 userDto.State = user.State;
-            }
+                userDto.PersonId = user.PersonId;
+            
             return userDto;
         }
         public User MappingData(User user, UserDto entity)
@@ -55,24 +50,26 @@ namespace Business.Implements
             user.Username = entity.Username;
             user.Password = entity.Password;
             user.State = entity.State;
+            user.PersonId = entity.PersonId;
+
             return user;
         }
-        public async Task<User> Save(UserDto userDto)
+        public async Task<User> Save(UserDto entity)
         {
             User user = new User();
             user.CreateAt = DateTime.Now.AddHours(-5);
-            user = this.MappingData(user, userDto);
+            user = this.MappingData(user, entity);
 
             return await this.data.Save(user);
         }
-        public async Task Update(UserDto userDto)
+        public async Task Update(UserDto entity)
         {
-            User user = await this.data.GetById(userDto.Id);
+            User user = await this.data.GetById(entity.Id);
             if (user == null)
             {
                 throw new Exception("Registro no encontrado");
             }
-            user = this.MappingData(user, userDto);
+            user = this.MappingData(user, entity);
             await this.data.Update(user);
         }
     }

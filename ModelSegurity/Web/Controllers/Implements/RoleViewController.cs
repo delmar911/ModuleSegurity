@@ -26,12 +26,20 @@ namespace Web.Controllers.Implements
         [HttpGet("{id}")]
         public async Task<ActionResult<RoleViewDto>> GetById(int id)
         {
-            var result = await _roleViewBusiness.GetById(id);
-            if (result == null)
+            try
             {
-                return NotFound();
+                var result = await _roleViewBusiness.GetById(id);
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                return Ok(result);
             }
-            return Ok(result);
+            catch (Exception ex)
+            {
+                return StatusCode(201, "El registro no exite");
+            }
+
         }
         [HttpPost]
         public async Task<ActionResult<RoleView>> Save([FromBody] RoleViewDto roleViewDto)
@@ -41,7 +49,7 @@ namespace Web.Controllers.Implements
                 return BadRequest("Entity is null");
             }
             var result = await _roleViewBusiness.Save(roleViewDto);
-            return CreatedAtAction(nameof(GetById), new {id = result.Id});
+            return CreatedAtAction(nameof(GetById), new {id = result.Id}, result);
         }
         [HttpPut("{id}")] 
         public async Task<IActionResult> Update([FromBody] RoleViewDto roleViewDto)

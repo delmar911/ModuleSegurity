@@ -7,9 +7,9 @@ namespace Data.Interface
     {
         public Task Delete(int id);
         public Task<Module> GetById(int id);
-        Task<IEnumerable<Module>> GetAll();
+        Task<IEnumerable<ModuleDto>> GetAll();
         public Task<Module> Save(Module entity);
-        public Task<Module> Update(Module entity);
+        public Task Update(Module entity);
         Task<IEnumerable<DataSelectDto>> GetAllSelect();
     }
 }

@@ -2,11 +2,7 @@
 using Data.Interface;
 using Entity.Dto;
 using Entity.Model.Security;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Business.Implements
 {
@@ -25,12 +21,9 @@ namespace Business.Implements
         }
         public async Task<IEnumerable<UserRoleDto>> GetAll()
         {
-            IEnumerable<UserRole> userroles = await this.data.GetAll();
-            var userroledto = userroles.Select(userroles => new UserRoleDto
-            {
-                Id = userroles.Id,
-            });
-            return userroledto;
+            IEnumerable<UserRoleDto> userroles = await this.data.GetAll();
+            
+            return userroles;
         }
         public async Task<IEnumerable<DataSelectDto>> GetAllSelect()
         {
@@ -45,22 +38,30 @@ namespace Business.Implements
             }
             UserRoleDto userroleDto = new UserRoleDto();
             {
-                id = userrole.Id;
+                userroleDto.Id = id;
+                userroleDto.RoleId = userrole.RoleId;
+                userroleDto.UserId = userrole.UserId;
+                userroleDto.State = userrole.State;
+                
             }
             return userroleDto;
         }
         public UserRole MappingData(UserRole userRole, UserRoleDto entity)
         {
             userRole.Id = entity.Id;
+            userRole.RoleId = entity.RoleId;
+            userRole.UserId = entity.UserId;
+            userRole.State = entity.State;
 
             return userRole;
         }
-        public async Task<UserRole>Save(UserRoleDto entity)
+        public async Task<UserRole> Save(UserRoleDto entity)
         {
-            UserRole userrole = await this.data.GetById(entity.Id);
-            userrole.CreateAt = DateTime.Now.AddHours(-5);
+            UserRole userrole = new UserRole
+            {
+                CreateAt = DateTime.Now.AddHours(-5)
+            };
             userrole = this.MappingData(userrole, entity);
-
             return await this.data.Save(userrole);
         }
         public async Task Update(UserRoleDto entity)

@@ -18,25 +18,23 @@ namespace Data.Implements
             } 
         public async Task<IEnumerable<DataSelectDto>> GetAllSelect()
         {
-            var sql = @"SELECT
-                    Id,
-                    Name
-                    FROM
-                    Departament
-                    WHERE Deleted_at IS NULL AND State = 1
-                    ORDER BY Id ASC";
+            var sql = @"SELECT Id, Name FROM departments
+                   WHERE DeletedAt IS NULL AND State = 1
+                    ORDER BY Id ASC;";
 
             return await context.QueryAsync<DataSelectDto>(sql);
         }
-        public async Task<IEnumerable<Department>> GetAll()
+        public async Task<IEnumerable<DepartmentDto>> GetAll()
         {
             var sql = @"SELECT
-                    *
-                    FROM
-                    Department
-                    WHERE Deleted_at IS NULL AND State = 1
-                    ORDER BY Id ASC";
-            return await context.QueryAsync<Department>(sql);
+                    	depa.Id,
+                     depa.Name,
+                     depa.CountryId,
+                     cou.Name AS Country
+                     FROM departments AS depa
+                     INNER JOIN countries AS cou ON cou.Id = depa.CountryId
+                      WHERE depa.DeletedAt IS NULL AND depa.State = 1 ";
+            return await context.QueryAsync<DepartmentDto>(sql);
         }
         public async Task Delete(int Id)
         {
@@ -70,10 +68,7 @@ namespace Data.Implements
             context.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             await context.SaveChangesAsync();
         }
-        Task<Department> IDepartmentData.Update(Department entity)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
    
 }

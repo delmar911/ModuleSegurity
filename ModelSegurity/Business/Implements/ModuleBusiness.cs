@@ -19,13 +19,9 @@ namespace Business.Implements
         }
         public async Task<IEnumerable<ModuleDto>> GetAll()
         {
-            IEnumerable<Module> modules = await this.data.GetAll();
-            var moduleDtos = modules.Select(modules => new ModuleDto
-            {
-                Id = modules.Id,
-                Description = modules.Description
-            });
-            return moduleDtos;
+            IEnumerable<ModuleDto> modules = await this.data.GetAll();
+           
+            return modules;
         }
         public async Task<IEnumerable<DataSelectDto>> GetAllSelect()
         {
@@ -42,6 +38,7 @@ namespace Business.Implements
             {
                 Id = module.Id,
                 Description = module.Description,
+                State = module.State
             };
             return moduleDto;
         }
@@ -50,6 +47,7 @@ namespace Business.Implements
         {
             module.Id = entity.Id;
             module.Description = entity.Description;
+            module.State = entity.State;
 
 
             return module;
@@ -72,15 +70,7 @@ namespace Business.Implements
             module = this.MappingData(module, entity);
             await this.data.Update(module);
         }
-        Task<ModuleDto> IModuleBusiness.Save(ModuleDto entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<ModuleDto> IModuleBusiness.Update(ModuleDto entity)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 
 

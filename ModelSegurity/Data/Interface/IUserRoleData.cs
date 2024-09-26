@@ -8,9 +8,9 @@ namespace Data.Interface
         public Task Delete(int id);
         public Task<UserRole> GetById(int id);
 
-        Task<IEnumerable<UserRole>> GetAll();
+        Task<IEnumerable<UserRoleDto>> GetAll();
         public Task<UserRole> Save(UserRole entity);
-        public Task<UserRole> Update(UserRole entity);
+        public Task Update(UserRole entity);
 
         public Task<IEnumerable<DataSelectDto>> GetAllSelect();
     }

@@ -19,15 +19,9 @@ namespace Business.Implements
 
         public async Task<IEnumerable<RoleDto>> GetAll()
         {
-            IEnumerable<Role> roles = await this.data.GetAll();
-            var roleDtos = roles.Select(role => new RoleDto
-            {
-                Id = role.Id,
-                Name = role.Name,
-                Description = role.Description
-
-            });
-            return roleDtos;
+            IEnumerable<RoleDto> roles = await this.data.GetAll();
+            
+            return roles;
         }
         public async Task<IEnumerable<DataSelectDto>> GetAllSelect()
         {
@@ -36,17 +30,24 @@ namespace Business.Implements
         public async Task<RoleDto>GetById(int id)
         {
             Role role = await this.data.GetById(id);
+            if (role == null)
+            {
+                throw new Exception("Registro no encontrado");
+            }
             RoleDto RoleDto = new RoleDto();
-
             RoleDto.Id = id;
+            RoleDto.Name = role.Name;
             RoleDto.Description = role.Description;
+            RoleDto.State = role.State;
 
             return RoleDto;
         }
         public Role MappingData(Role role, RoleDto entity) 
         {
             role.Id = entity.Id;
+            role.Name = entity.Name;
             role.Description = entity.Description;
+            role.State = entity.State;
             
             return role;
         }

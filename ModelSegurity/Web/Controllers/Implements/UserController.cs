@@ -25,12 +25,21 @@ namespace Web.Controllers.Implements
         [HttpGet("{id}")]
         public async Task<ActionResult<UserDto>> GetById(int id)
         {
-            var result = await _userBusiness.GetById(id);
-            if (result == null)
+            try
             {
-                return NotFound();
+                var result = await _userBusiness.GetById(id);
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                return Ok(result);
             }
-            return Ok(result);
+            catch (Exception ex)
+            {
+                return StatusCode(201, "El registro no exite");
+            }
+
+
         }
         [HttpPost]
         public async Task<ActionResult<User>> Save([FromBody] UserDto userDto)
@@ -40,7 +49,7 @@ namespace Web.Controllers.Implements
                 return BadRequest("userDto is null");
             }
             var result = await _userBusiness.Save(userDto);
-            return CreatedAtAction(nameof(GetById), new { id = result.Id });
+            return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
         }
         [HttpPut("{id}")]
         public async Task<IActionResult> Update([FromBody] UserDto userDto)

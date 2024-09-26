@@ -24,21 +24,21 @@ namespace Data.Implements
                 Id,
                 CONCAT(Name, ' -', Description) AS TextoMostrar
                 FROM
-                Role
-                WHERE Deleted_at IS NULL AND State = 1
+                roles
+                WHERE DeletedAt IS NULL AND State = 1
                 ORDER BY Id ASC";
              return await context.QueryAsync<DataSelectDto>(sql);
         }
-        public async Task<IEnumerable<Role>> GetAll()
+        public async Task<IEnumerable<RoleDto>> GetAll()
 
         {
             var sql = @"SELECT
                 *
                 FROM
-                Role
-                WHERE Deleted_at IS NULL AND State = 1
+                roles
+                WHERE DeletedAt IS NULL AND State = 1
                 ORDER BY Id ASC";
-            return await context.QueryAsync<Role>(sql);
+            return await context.QueryAsync<RoleDto>(sql);
         }
 
         public async Task Delete(int Id)
@@ -54,7 +54,7 @@ namespace Data.Implements
         }
         public async Task<Role> GetById(int id)
         {
-            var sql = @"SELECT * FROM Role WHERE Id = @Id ORDER BY Id ASC";
+            var sql = @"SELECT * FROM roles WHERE Id = @Id ORDER BY Id ASC";
             return await this.context.QueryFirstOrDefaultAsync<Role>(sql, new
             {
                 Id = id
@@ -72,14 +72,8 @@ namespace Data.Implements
 
         public async Task Update(Role entity)
         {
-
             context.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             await context.SaveChangesAsync();
-        }
-
-        Task<Role> IRoleData.Update(Role entity)
-        {
-            throw new NotImplementedException();
         }
     }
 }

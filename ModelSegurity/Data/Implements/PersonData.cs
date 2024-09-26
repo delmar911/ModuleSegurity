@@ -23,25 +23,28 @@ namespace Data.Implements
         {
             var sql = @"SELECT
                 Id,
-                CONCAT(FirstName, ' -', LastName, ' -', Email, ' -' ,
-                        Address,' -' ,TypeDocument,' -' ,Document,' -' ,
-                        BirthOfDate,' -' ,Phone )
+                FirstName,  LastName,  Email,
+                Address,TypeDocument,Document ,
+                BirthOfDate,Phone 
                 FROM
-                Person
-                WHERE Deleted_at IS NULL AND State = 1
+                persons
+                WHERE DeletedAt IS NULL AND State = 1
                 ORDER BY Id ASC";
             return await context.QueryAsync<DataSelectDto>(sql);
         }
-        public async Task<IEnumerable<Person>> GetAll()
+        public async Task<IEnumerable<PersonDto>> GetAll()
 
         {
             var sql = @"SELECT
-                *
+                per.FirstName,  per.LastName,  per.Email,
+                per.Address,per.TypeDocument,per.Document ,
+                per.BirthOfDate,per.Phone, ci.Name AS City
                 FROM
-                Person
-                WHERE Deleted_at IS NULL AND State = 1
-                ORDER BY Id ASC";
-            return await context.QueryAsync<Person>(sql);
+                persons AS per
+                INNER JOIN cities AS ci ON ci.Id = per.CityId
+                WHERE per.DeletedAt IS NULL AND per.State = 1
+                ORDER BY per.Id ASC";
+            return await context.QueryAsync<PersonDto>(sql);
         }
 
         public async Task Delete(int Id)
@@ -57,7 +60,7 @@ namespace Data.Implements
         }
         public async Task<Person> GetById(int id)
         {
-            var sql = @"SELECT * FROM Person WHERE Id = @Id ORDER BY Id ASC";
+            var sql = @"SELECT * FROM persons WHERE Id = @Id ORDER BY Id ASC";
             return await this.context.QueryFirstOrDefaultAsync<Person>(sql, new
             {
                 Id = id
@@ -80,9 +83,6 @@ namespace Data.Implements
             await context.SaveChangesAsync();
         }
 
-        Task<Person> IPersonData.Update(Person entity)
-        {
-            throw new NotImplementedException();
-        }
+      
     }
 }

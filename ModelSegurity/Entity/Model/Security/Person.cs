@@ -14,17 +14,20 @@
 
         public string Document { get; set; }
 
-        public string BirthOfDate { get; set; }
+        public DateTime BirthOfDate { get; set; }
 
         public string Phone { get; set; }
 
         public DateTime CreateAt { get; set; }
 
-        public DateTime UpdateAt { get; set; }
+        public DateTime ? UpdateAt { get; set; }
 
-        public DateTime DeletedAt { get; set; }
+        public DateTime ? DeletedAt { get; set; }
 
         public bool State { get; set; }
+        //city
+        public int CityId { get; set; }
+        public City City { get; set; }
 
     }
 }

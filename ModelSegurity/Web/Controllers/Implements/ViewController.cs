@@ -26,12 +26,20 @@ namespace Web.Controllers.Implements
         [HttpGet("{id}")]
         public async Task<ActionResult<ViewDto>> GetById(int id)
         {
-            var result = await _viewBusiness.GetById(id);
-            if (result == null)
+            try
             {
-                return NotFound();
+                var result = await _viewBusiness.GetById(id);
+                    if (result == null)
+                    {
+                        return NotFound();
+                    }
+                    return Ok(result);
             }
-            return Ok(result);
+            catch (Exception ex)
+            {
+                return StatusCode(201, "El registro no exite");
+            }
+
 
         }
         [HttpPost]

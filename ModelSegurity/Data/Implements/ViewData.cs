@@ -21,24 +21,24 @@ namespace Data.Implements
 
         {
             var sql = @"SELECT
-            Id,
-            CONCAT(Name, ' -', Description, ' -', ModuleId, ' -',Module)
-            FROM
-            View
-            WHERE Deleted_at IS NULL AND State = 1
-            ORDER BY Id ASC";
+                        Id,
+                        Name,  Description,  ModuleId
+                        FROM
+                        views
+                        
+                        ORDER BY Id ASC";
             return await context.QueryAsync<DataSelectDto>(sql);
         }
-        public async Task<IEnumerable<View>> GetAll()
+        public async Task<IEnumerable<ViewDto>> GetAll()
 
         {
             var sql = @"SELECT
             *
             FROM
-            View
-            WHERE Deleted_at IS NULL AND State = 1
+            views
+            
             ORDER BY Id ASC";
-            return await context.QueryAsync<View>(sql);
+            return await context.QueryAsync<ViewDto>(sql);
         }
 
         public async Task Delete(int Id)
@@ -54,7 +54,7 @@ namespace Data.Implements
         }
         public async Task<View> GetById(int id)
         {
-            var sql = @"SELECT * FROM View WHERE Id = @Id ORDER BY Id ASC";
+            var sql = @"SELECT * FROM views WHERE Id = @Id ORDER BY Id ASC";
             return await this.context.QueryFirstOrDefaultAsync<View>(sql, new
             {
                 Id = id
@@ -77,9 +77,5 @@ namespace Data.Implements
             await context.SaveChangesAsync();
         }
 
-        Task<View> IViewData.Update(View entity)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

@@ -2,11 +2,7 @@
 using Data.Interface;
 using Entity.Dto;
 using Entity.Model.Security;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Business.Implements
 {
@@ -21,16 +17,11 @@ namespace Business.Implements
         {
             await data.Delete(id);
         }
-        public async Task<IEnumerable<DepartmentDto>>GetAll()
+        public async Task<IEnumerable<DepartmentDto>> GetAll()
         {
-            IEnumerable<Department>departments = await data.GetAll();
-            var departmentDtos = departments.Select(department => new DepartmentDto
-            {
-                Id = department.Id,
-                Name = department.Name,
-
-            });
-            return departmentDtos;
+            IEnumerable<DepartmentDto> departments = await data.GetAll();
+          
+            return departments;
         }
         public async Task<IEnumerable<DataSelectDto>> GetAllSelect()
         {
@@ -39,10 +30,17 @@ namespace Business.Implements
         public async Task<DepartmentDto> GetById(int id)
         {
             Department department = await data.GetById(id);
+            if (department == null)
+            {
+                throw new Exception("El registro no existe");
+            }
             DepartmentDto departmentDto = new DepartmentDto();
 
             departmentDto.Id = id;
             departmentDto.Name = department.Name;
+            departmentDto.State = department.State;
+            departmentDto.CountryId = department.CountryId;
+            
 
             return departmentDto;
         }
@@ -50,6 +48,8 @@ namespace Business.Implements
         {
             department.Id = entity.Id;
             department.Name = entity.Name;
+            department.State = entity.State;
+            department.CountryId = entity.CountryId;
 
             return department;
         }

@@ -13,13 +13,13 @@ namespace Entity.Model.Security
 
         public DateTime CreateAt { get; set; }
 
-        public DateTime UpdateAt { get; set; }
+        public DateTime ? UpdateAt { get; set; }
 
-        public DateTime DeletedAt { get; set; }
+        public DateTime ? DeletedAt { get; set; }
 
         public bool State { get; set; }
         //country
-        private int CountryId { get; set; }
-        private Country Country { get; set; }
+        public int CountryId { get; set; }
+        public Country Country { get; set; }
     }
 }

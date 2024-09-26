@@ -9,10 +9,13 @@
 
         public DateTime CreateAt { get; set; }
 
-        public DateTime UpdateAt { get; set; }
+        public DateTime ? UpdateAt { get; set; }
 
-        public DateTime DeletedAt { get; set; }
+        public DateTime ? DeletedAt { get; set; }
 
         public bool State { get; set; }
+        //ralacion con person
+        public int PersonId { get; set; }
+        public Person Person { get; set; }
     }
 }

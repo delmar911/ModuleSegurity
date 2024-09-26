@@ -20,25 +20,35 @@ namespace Data.Implements
         public async Task<IEnumerable<DataSelectDto>> GetAllSelect()
 
         {
-            var sql = @"SELECT
-            Id,
-            CONCAT(Username, ' -', Password, ' -', State)
-            FROM
-            User
-            WHERE Deleted_at IS NULL AND State = 1
-            ORDER BY Id ASC";
+            var sql = @"SELECT 
+            Id, 
+            CONCAT(Username, ' - ', Password, ' - ', PersonId, ' - ', State) AS TextoMostrar 
+            FROM 
+                users 
+            WHERE 
+                DeletedAt IS NULL AND State = 1 
+            ORDER BY 
+                Id ASC";
             return await context.QueryAsync<DataSelectDto>(sql);
+
         }
-        public async Task<IEnumerable<User>> GetAll()
+        public async Task<IEnumerable<UserDto>> GetAll()
 
         {
             var sql = @"SELECT
-            *
-            FROM
-            User
-            WHERE Deleted_at IS NULL AND State = 1
-            ORDER BY Id ASC";
-            return await context.QueryAsync<User>(sql);
+                   	us.Id,
+                    us.Username,
+                    us.Password,
+                    us.State,
+                    us.PersonId,
+                    per.FirstName AS NamePerson
+
+                    FROM users AS us
+                    INNER JOIN persons AS per ON per.Id = us.PersonId
+                    WHERE us.DeletedAt IS NULL AND us.State = 1 ";
+
+            return await context.QueryAsync<UserDto>(sql);
+
         }
 
         public async Task Delete(int Id)
@@ -54,7 +64,7 @@ namespace Data.Implements
         }
         public async Task<User> GetById(int id)
         {
-            var sql = @"SELECT * FROM User WHERE Id = @Id ORDER BY Id ASC";
+            var sql = @"SELECT * FROM users WHERE Id = @Id ORDER BY Id ASC ";
             return await this.context.QueryFirstOrDefaultAsync<User>(sql, new
             {
                 Id = id
@@ -77,9 +87,6 @@ namespace Data.Implements
             await context.SaveChangesAsync();
         }
 
-        Task<User>IUserData.Update(User entity)
-        {
-            throw new NotImplementedException();
-        }
+    
     }
 }

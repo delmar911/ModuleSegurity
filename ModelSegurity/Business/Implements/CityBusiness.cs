@@ -20,14 +20,9 @@ namespace Business.Implements
         }
         public async Task<IEnumerable<CityDto>> GetAll()
         {
-            IEnumerable<City> cities = await this.data.GetAll();
-            var cityDtos = cities.Select(city => new CityDto
-            {
-                Id = city.Id,
-                Name = city.Name
-
-            });
-            return cityDtos;
+            IEnumerable<CityDto> cities = await this.data.GetAll();
+           
+            return cities;
 
         }
         public async Task<IEnumerable<DataSelectDto>> GetAllSelect()
@@ -37,16 +32,28 @@ namespace Business.Implements
         public async Task<CityDto> GetById(int id)
         {
             City city = await this.data.GetById(id);
+            if (city == null)
+            {
+                throw new Exception("El registro no existe");
+            }
             CityDto cityDto = new CityDto();
 
             cityDto.Id = id;
             cityDto.Name = city.Name;
+            cityDto.State = city.State;
+            cityDto.DepartmentId = city.DepartmentId;
+
+
+
             return cityDto;
         }
         public City MappingData(City city, CityDto entity)
         {
             city.Id = entity.Id;
             city.Name = entity.Name;
+            city.State = entity.State;
+            city.DepartmentId = entity.DepartmentId;
+           
 
             return city;
         } 

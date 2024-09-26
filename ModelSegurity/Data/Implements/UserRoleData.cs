@@ -20,25 +20,24 @@ namespace Data.Implements
         public async Task<IEnumerable<DataSelectDto>> GetAllSelect()
 
         {
-            var sql = @"SELECT
-            Id,
-            CONCAT(PersonId, ' -', Person)
-            FROM
-            UserRole
-            WHERE Deleted_at IS NULL AND State = 1
-            ORDER BY Id ASC";
+            var sql = @"SELECT  Id, UserId, RoleId 
+                        FROM  userroles 
+                        ORDER BY 
+                        Id ASC";
             return await context.QueryAsync<DataSelectDto>(sql);
+
         }
-        public async Task<IEnumerable<UserRole>> GetAll()
+        public async Task<IEnumerable<UserRoleDto>> GetAll()
 
         {
-            var sql = @"SELECT
-            *
-            FROM
-            UserRole
-            WHERE Deleted_at IS NULL AND State = 1
-            ORDER BY Id ASC";
-            return await context.QueryAsync<UserRole>(sql);
+            var sql = @"SELECT  usrol.RoleId, usrol.UserId, usr.Username AS User, rol.Name as Role
+                        FROM
+                        userroles as usrol
+                        INNER JOIN roles AS rol ON rol.Id = usrol.RoleId 
+			            INNER JOIN users AS usr ON usr.Id = usrol.UserId
+                        WHERE usrol.DeletedAt IS NULL AND usrol.State = 1
+                        ORDER BY usrol.Id ASC";
+            return await context.QueryAsync<UserRoleDto>(sql);
         }
 
         public async Task Delete(int Id)
@@ -54,7 +53,7 @@ namespace Data.Implements
         }
         public async Task<UserRole> GetById(int id)
         {
-            var sql = @"SELECT * FROM UserRole WHERE Id = @Id ORDER BY Id ASC";
+            var sql = @"SELECT * FROM userroles WHERE Id = @Id ORDER BY Id ASC";
             return await this.context.QueryFirstOrDefaultAsync<UserRole>(sql, new
             {
                 Id = id
@@ -77,10 +76,7 @@ namespace Data.Implements
             await context.SaveChangesAsync();
         }
 
-        Task<UserRole> IUserRoleData.Update(UserRole entity)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }
 

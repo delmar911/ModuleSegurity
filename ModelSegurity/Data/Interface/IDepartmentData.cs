@@ -12,9 +12,9 @@ namespace Data.Interface
     {
         public Task Delete(int id);
         public Task<Department> GetById(int id);
-        public Task<IEnumerable<Department>> GetAll();
+        public Task<IEnumerable<DepartmentDto>> GetAll();
         public Task<Department> Save(Department entity);
-        public Task<Department> Update(Department entity);
+        public Task Update(Department entity);
         public Task<IEnumerable<DataSelectDto>> GetAllSelect();
     }
 }

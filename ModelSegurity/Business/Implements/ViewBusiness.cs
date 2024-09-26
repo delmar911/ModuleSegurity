@@ -19,18 +19,9 @@ namespace Business.Implements
 
         public async Task<IEnumerable<ViewDto>> GetAll()
         {
-            IEnumerable<View> views = await this.data.GetAll();
-            var viewDtos = views.Select(view => new ViewDto
-            {
-                Id = view.Id,
-                Name = view.Name,
-                Description = view.Description,
-                Module = view.Module,
-                ModuleId = view.ModuleId,
-                State = view.State
-
-            });
-            return viewDtos;
+            IEnumerable<ViewDto> views = await this.data.GetAll();
+            
+            return views;
         }
         public async Task<IEnumerable<DataSelectDto>> GetAllSelect()
         {
@@ -46,6 +37,10 @@ namespace Business.Implements
             ViewDto viewDto = new ViewDto
             {
                 Id = view.Id,
+                Name = view.Name,
+                Description = view.Description,
+                ModuleId = view.ModuleId,
+                State = view.State
 
             };
             return viewDto;
@@ -56,7 +51,6 @@ namespace Business.Implements
             view.Id = entity.Id;
             view.Name = entity.Name;
             view.Description = entity.Description;
-            view.Module = entity.Module;
             view.ModuleId = entity.ModuleId;
             view.State = entity.State;
             return view;
@@ -66,7 +60,6 @@ namespace Business.Implements
             View view = new View();
             view.CreateAt = DateTime.Now.AddHours(-5);
             view = this.MappingData(view, entity);
-            view.Module = null;
 
             return await this.data.Save(view);
         }

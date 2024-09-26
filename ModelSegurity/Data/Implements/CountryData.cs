@@ -25,9 +25,8 @@ namespace Data.Implements
                 isoCode,
                 Currency
                 FROM
-                Country
-                WHERE Deleted_at IS NULL AND State = 1
-                ORDER BY Id ASC";
+                Countries
+                 WHERE DeletedAt IS NULL AND State = 1;";
 
             return await context.QueryAsync<DataSelectDto>(sql);
 
@@ -37,9 +36,8 @@ namespace Data.Implements
             var sql = @"SELECT
                 *
                 FROM
-                Country
-                WHERE Deleted_at IS NULL AND State = 1
-                ORDER BY Id ASC";
+                countries
+                WHERE DeletedAt IS NULL AND State = 1";
             return await context.QueryAsync<Country>(sql);
         }
         public async Task Delete(int Id)
@@ -55,7 +53,7 @@ namespace Data.Implements
         }
         public async Task<Country>GetById(int id)
         {
-            var sql = @"SELECT * FROM Country WHERE Id = @Id ORDER BY Id ASC";
+            var sql = @"SELECT * FROM Countries WHERE Id = @Id ORDER BY Id ASC";
             return await this.context.QueryFirstOrDefaultAsync<Country>(sql, new
             {
                 Id = id
@@ -74,10 +72,7 @@ namespace Data.Implements
             context.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             await context.SaveChangesAsync();
         }
-        Task<Country> ICountryData.Update(Country entity)
-        {
-            throw new NotImplementedException();
-        }
+        
 
 
     }

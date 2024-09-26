@@ -24,21 +24,21 @@ namespace Data.Implements
                 Id,
                 Description
                 FROM
-                Module
-                WHERE Deleted_at IS NULL AND State = 1
+                modules
+                WHERE DeletedAt IS NULL AND State = 1
                 ORDER BY Id ASC";
             return await context.QueryAsync<DataSelectDto>(sql);
         }
-        public async Task<IEnumerable<Module>> GetAll()
+        public async Task<IEnumerable<ModuleDto>> GetAll()
 
         {
             var sql = @"SELECT
                 *
                 FROM
-                Module
-                WHERE Deleted_at IS NULL AND State = 1
+                modules
+                WHERE DeletedAt IS NULL AND State = 1
                 ORDER BY Id ASC";
-            return await context.QueryAsync<Module>(sql);
+            return await context.QueryAsync<ModuleDto>(sql);
         }
 
         public async Task Delete(int Id)
@@ -54,7 +54,7 @@ namespace Data.Implements
         }
         public async Task<Module> GetById(int id)
         {
-            var sql = @"SELECT * FROM Module WHERE Id = @Id ORDER BY Id ASC";
+            var sql = @"SELECT * FROM modules WHERE Id = @Id ORDER BY Id ASC";
             return await this.context.QueryFirstOrDefaultAsync<Module>(sql, new
             {
                 Id = id
@@ -75,11 +75,6 @@ namespace Data.Implements
 
             context.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             await context.SaveChangesAsync();
-        }
-
-        Task<Module> IModuleData.Update(Module entity)
-        {
-            throw new NotImplementedException();
         }
     }
 }

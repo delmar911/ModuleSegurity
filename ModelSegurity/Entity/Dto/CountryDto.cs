@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Entity.Dto
 {
     public class CountryDto
@@ -13,5 +8,6 @@ namespace Entity.Dto
         public string isoCode { get; set; }
         //moneda
         public string Currency { get; set; }
+        public bool State { get; set; }
     }
 }

@@ -20,24 +20,27 @@ namespace Data.Implements
         public async Task<IEnumerable<DataSelectDto>> GetAllSelect()
 
         {
-            var sql = @"SELECT
-                Id
-                FROM
-                RoleView
-                WHERE Deleted_at IS NULL AND State = 1
-                ORDER BY Id ASC";
+            var sql = @"SELECT 
+                rolvi.Id,
+                rolvi.RoleId,
+                rolvi.ViewId,
+                ro.Name AS RoleName,
+                vi.Name AS ViewName
+                FROM roleviews AS rolvi
+                INNER JOIN roles AS ro ON ro.Id=rolvi.ViewId
+                INNER JOIN views AS vi ON vi.Id=rolvi.RoleId";
             return await context.QueryAsync<DataSelectDto>(sql);
         }
-        public async Task<IEnumerable<RoleView>> GetAll()
+        public async Task<IEnumerable<RoleViewDto>> GetAll()
 
         {
             var sql = @"SELECT
             *
             FROM
-            RoleView
-            WHERE Deleted_at IS NULL AND State = 1
+            roleviews
+            WHERE DeletedAt IS NULL AND State = 1
             ORDER BY Id ASC";
-            return await context.QueryAsync<RoleView>(sql);
+            return await context.QueryAsync<RoleViewDto>(sql);
         }
 
         public async Task Delete(int Id)
@@ -53,7 +56,7 @@ namespace Data.Implements
         }
         public async Task<RoleView> GetById(int id)
         {
-            var sql = @"SELECT * FROM RoleView WHERE Id = @Id ORDER BY Id ASC";
+            var sql = @"SELECT * FROM roleviews WHERE Id = @Id ORDER BY Id ASC";
             return await this.context.QueryFirstOrDefaultAsync<RoleView>(sql, new
             {
                 Id = id
@@ -68,17 +71,14 @@ namespace Data.Implements
             return entity;
         }
 
-        public async Task Update(RoleViewData entity)
+        public async Task Update(RoleView entity)
         {
 
             context.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             await context.SaveChangesAsync();
         }
 
-        Task<RoleView> IRoleViewData.Update(RoleView entity)
-        {
-            throw new NotImplementedException();
-        }
+    
 
  
     }

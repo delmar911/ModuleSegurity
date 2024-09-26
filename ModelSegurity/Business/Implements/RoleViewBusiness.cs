@@ -2,6 +2,8 @@
 using Data.Interface;
 using Entity.Dto;
 using Entity.Model.Security;
+using System.Data;
+
 
 namespace Business.Implements
 {
@@ -18,17 +20,13 @@ namespace Business.Implements
         }
         public async Task<IEnumerable<RoleViewDto>> GetAll()
         {
-            IEnumerable<RoleView> roleviews = await this.data.GetAll();
-            var RoleViewDtos = roleviews.Select(roleviews => new RoleViewDto
-            {
-                Id = roleviews.Id,
-                
-            });
-            return RoleViewDtos;
+            IEnumerable<RoleViewDto> roleviews = await this.data.GetAll();
+           
+            return roleviews;
         }
         public async Task<IEnumerable<DataSelectDto>> GetAllSelect()
         {
-            return (IEnumerable<DataSelectDto>)await this.data.GetAllSelect();
+            return await this.data.GetAllSelect();
         }
         public async Task<RoleViewDto> GetById(int id)
         {
@@ -37,20 +35,21 @@ namespace Business.Implements
             {
                 throw new Exception("Registro no encontrado");
             }
-            RoleViewDto roleViewDto = new RoleViewDto
-            {
-                Id = roleview.Id,
-              
-            };
+            RoleViewDto roleViewDto = new RoleViewDto();
+
+            roleViewDto.Id = id;
+            roleViewDto.ViewId = roleview.ViewId;
+            roleViewDto.RoleId = roleview.RoleId;
+            
             return roleViewDto;
         }
 
         public RoleView MappingData(RoleView roleview, RoleViewDto entity)
         {
             roleview.Id = entity.Id;
+            roleview.RoleId = entity.RoleId;
+            roleview.ViewId = entity.ViewId;
           
-
-
             return roleview;
         }
         public async Task<RoleView> Save(RoleViewDto entity)
@@ -71,14 +70,6 @@ namespace Business.Implements
             roleview = this.MappingData(roleview, entity);
             await this.data.Update(roleview);
         }
-        Task<RoleViewDto> IRoleViewBusiness.Save(RoleViewDto entity)
-        {
-            throw new NotImplementedException();
-        }
 
-        Task<RoleViewDto> IRoleViewBusiness.Update(RoleViewDto entity)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

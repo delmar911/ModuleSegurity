@@ -27,25 +27,28 @@ namespace Data.Implements
                 Id,
                 Name
                 FROM
-                City
-                WHERE Deleted_at IS NULL AND State = 1
+                cities
+                WHERE DeletedAt IS NULL AND State = 1
                 ORDER BY Id ASC";
 
             return await context.QueryAsync<DataSelectDto>(sql);
         }
-        public async Task<IEnumerable<City>> GetAll()
+        public async Task<IEnumerable<CityDto>> GetAll()
         {
-            var sql = @"SELECT
-                *
-                FROM
-                City
-                WHERE Deleted_at IS NULL AND State = 1
-                ORDER BY Id ASC";
-            return await context.QueryAsync<City>(sql);
+            var sql = @"SELECT 
+                        ci.Id,
+                        ci.Name,
+                        ci.DepartmentId,
+                        ci.State,
+                        de.Name AS Department
+                        FROM cities AS ci
+                        INNER JOIN departments AS de ON de.Id = ci.DepartmentId
+                         WHERE ci.DeletedAt IS NULL AND ci.State = 1";
+            return await context.QueryAsync<CityDto>(sql);
         }
         public async Task<City> GetById(int id)
         {
-            var sql = @"SELECT * FROM City WHERE Id = @Id ORDER BY Id ASC";
+            var sql = @"SELECT * FROM cities WHERE Id = @Id ORDER BY Id ASC";
             return await this.context.QueryFirstOrDefaultAsync<City>(sql, new
             {
                 Id = id
@@ -75,10 +78,7 @@ namespace Data.Implements
             context.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             await context.SaveChangesAsync();
         }
-        Task<City> ICityData.Update(City entity)
-        {
-            throw new NotImplementedException();
-        }
+   
 
     }
 }

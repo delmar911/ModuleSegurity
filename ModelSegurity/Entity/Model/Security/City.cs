@@ -12,13 +12,13 @@ namespace Entity.Model.Security
         public string Name { get; set; }
         public DateTime CreateAt { get; set; }
 
-        public DateTime UpdateAt { get; set; }
+        public DateTime ? UpdateAt { get; set; }
 
-        public DateTime DeletedAt { get; set; }
+        public DateTime ? DeletedAt { get; set; }
 
         public bool State { get; set; }
         //ralacion con departmnet
-        private int DeparmentId { get; set; }
-        private Department Department { get; set; }
+        public int DepartmentId { get; set; }
+        public Department Department { get; set; }
     }
 }

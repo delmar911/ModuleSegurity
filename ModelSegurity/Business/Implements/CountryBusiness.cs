@@ -2,6 +2,7 @@
 using Data.Interface;
 using Entity.Dto;
 using Entity.Model.Security;
+using Google.Protobuf.Compiler;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +31,8 @@ namespace Business.Implements
                 Id = country.Id,
                 Name = country.Name,
                 isoCode = country.isoCode,
-                Currency = country.Currency
+                Currency = country.Currency,
+                State = country.State,
 
             });
             return countryDtos;
@@ -42,12 +44,17 @@ namespace Business.Implements
         public async Task<CountryDto>GetById(int id)
         {
             Country country = await this.data.GetById(id);
+            if (country == null)
+            {
+                throw new Exception("El registro no existe");
+            }
             CountryDto countryDto = new CountryDto();
 
             countryDto.Id = id;
             countryDto.Name = country.Name;
             countryDto.isoCode = country.isoCode;
             countryDto.Currency = country.Currency;
+            countryDto.State = country.State;
 
             return countryDto;
         }
@@ -57,6 +64,7 @@ namespace Business.Implements
             country.Name = entity.Name;
             country.isoCode= entity.isoCode;
             country.Currency = entity.Currency;
+            country.State = entity.State;
 
             return country;
         }
