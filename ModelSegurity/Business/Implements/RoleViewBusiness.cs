@@ -40,6 +40,7 @@ namespace Business.Implements
             roleViewDto.Id = id;
             roleViewDto.ViewId = roleview.ViewId;
             roleViewDto.RoleId = roleview.RoleId;
+            roleViewDto.State = roleview.State;
             
             return roleViewDto;
         }
@@ -49,6 +50,7 @@ namespace Business.Implements
             roleview.Id = entity.Id;
             roleview.RoleId = entity.RoleId;
             roleview.ViewId = entity.ViewId;
+            roleview.State = entity.State;
           
             return roleview;
         }

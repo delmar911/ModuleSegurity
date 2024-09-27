@@ -9,5 +9,7 @@ namespace Entity.Dto
         public string ? Role { get; set; }
         public int ViewId { get; set; }
         public string ? View { get; set; }
+
+        public bool State { get; set; }
     }
 }
